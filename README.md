@@ -2,6 +2,8 @@
 
 > ⚠️: **This project is still in development and is not ready for use.**
 
+> The goal: A music player that can be used to play music, but also to process audio in real-time. Meanwhile, it's a meaningful project to learn about audio processing and music player development in Rust / Tauri and frontend development in SvelteKit.
+
 A tauri app that attempts to be a music player. Backend and audio processing is done in Rust, frontend is done in SvelteKit with TailwindCSS.
 
 ## Running the app
