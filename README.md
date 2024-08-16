@@ -12,4 +12,9 @@ npm install
 npm run tauri dev
 ```
 
+If you have justfile installed, you can also run the following command:
+```bash
+just dev
+```
+
 Open up some folders with music files in them and enjoy the app!
