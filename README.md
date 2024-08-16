@@ -18,3 +18,8 @@ just dev
 ```
 
 Open up some folders with music files in them and enjoy the app!
+
+
+# The name
+The name `Protonysus` is a blend between the ancient Greek deities `Proteus` and `Dionysus`. Proteus representing versatility 
+and mutability (the DSP aspect) and Dionysus representing music and entertainment (the music player aspect).
