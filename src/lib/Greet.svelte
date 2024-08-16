@@ -191,12 +191,14 @@
 				</div>
 				<p class="w-10">{Duration.fromMillis(state.current_track?.duration || 0).toFormat('mm:ss')}</p>
 
-				<div>
-					<p>{state.current_track?.path}</p>
-				</div>
 			</div>
 		{/if}
 	</div>
+</div>
+
+<div class="text-xs text-center bg-amber-100/50 max-w-5xl items-center px-2 justify-center mx-auto py-2 rounded-full flex flex-row">
+	<p class="font-bold text-nowrap mr-2">Playing file:</p>
+	<p>{state.current_track?.path}</p>
 </div>
 
 <div class="mt-4 max-w-3xl items-center justify-center mx-auto">

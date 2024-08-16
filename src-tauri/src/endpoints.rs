@@ -1,16 +1,9 @@
-use std::collections::HashSet;
-use std::io::BufReader;
-use std::path::PathBuf;
-use std::sync::{Arc, Mutex};
-use std::time::{Duration, Instant};
+use crate::player::{Library, PlayerControls, PlayerEvent, PlayerState, Track};
 use rayon::prelude::*;
-use rodio::{Decoder, Source};
 use serde_json::{json, Value};
+use std::sync::{Arc, Mutex};
 use tauri::State;
-use crate::player::{Id3Tags, Library, PlayerControls, PlayerEvent, PlayerState, Track};
-use crate::tagging::{extract_flac_tags, extract_id3_tags};
-
-const ACCEPTED_EXTENSIONS: [&str; 5] = ["mp3", "wav", "flac", "ogg", "aiff"];
+use crate::library::modify_library;
 
 #[tauri::command]
 pub fn player_state(state: State<'_, Arc<Mutex<PlayerState>>>, controls: State<'_, PlayerControls>) -> Value {
@@ -63,10 +56,9 @@ pub fn stop(controls: State<'_, PlayerControls>) {
 pub fn upload_file(files: Vec<&str>,
                    library: State<'_, Arc<Mutex<Library>>>) -> Value
 {
-    let lib = modify_library(&mut library.lock().unwrap(), files);
-    library.lock().unwrap() = lib;
-    let serialised = json!(*lib);
-
+    modify_library(&library, files);
+    
+    let serialised = json!(*library.lock().unwrap());
     serialised
 }
 

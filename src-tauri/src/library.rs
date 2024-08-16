@@ -1,4 +1,16 @@
-fn modify_lirary(library: &mut Library, files: Vec<&str>) -> Library {
+use std::collections::HashSet;
+use std::io::BufReader;
+use std::path::PathBuf;
+use std::sync::{Arc, Mutex};
+use std::time::{Duration, Instant};
+use rayon::prelude::*;
+use rodio::{Decoder, Source};
+use crate::player::{Id3Tags, Library, Track};
+use crate::tagging::{extract_flac_tags, extract_id3_tags};
+
+const ACCEPTED_EXTENSIONS: [&str; 5] = ["mp3", "wav", "flac", "ogg", "aiff"];
+
+pub fn modify_library(library: &Arc<Mutex<Library>>, files: Vec<&str>){
     let mut start = Instant::now();
     let new_tracks = scan_files(files).par_iter().map(file_to_track)
         .flatten()
@@ -8,8 +20,8 @@ fn modify_lirary(library: &mut Library, files: Vec<&str>) -> Library {
 
     let mut lib = library.lock().unwrap();
     lib.tracks = all_tracks;
-
     println!("Scanned {} files in {:?}", new_tracks.len(), start.elapsed());
+}
 
 
 fn scan_files(paths: Vec<&str>) -> Vec<PathBuf> {
